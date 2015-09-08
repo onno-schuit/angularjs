@@ -1,0 +1,59 @@
+<html ng-app="notesApp">
+    <head><title>Hello AngularJS</title></head>
+    <body ng-controller="MainCtrl as ctrl">
+    
+
+        <div>
+            <input type="text"
+                ng-model="name"
+                placeholder="Enter your name">
+            <h1>Hello <span ng-bind="name"></span></h1>
+            <h2>{{name}}</h2>
+        </div>
+
+        <div>
+            {{ctrl.helloMsg}} AngularJS.
+            <br/>
+            {{ctrl.goodbyeMsg}} AngularJS
+        </div>
+        <br/>
+        <hr/>
+        <div>
+            {{ctrl.message}} Rocks!
+            <button ng-click="ctrl.changeMessage()">
+                Change Message
+            </button>
+        </div>
+        <br/>
+        <hr/>
+        <div>
+            <div ng-repeat="note in ctrl.notes">
+                Without Bind Once: <span style='display:inline-block;width:200px' class="label">{{note.label}}</span>
+                With Bind Once: <span class="label" ng-bind="::note.label"></span>
+                <span class="status" ng-bind="note.done"></span>
+            </div>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.js"></script>
+        <script type="text/javascript">
+            angular.module('notesApp', []).controller('MainCtrl', [function() {
+                // Controller code
+                var self = this;
+                self.helloMsg = 'Hello';
+                self.goodbyeMsg = 'Goodbye';
+                self.message = 'AngularJS';
+                self.changeMessage = function () {
+                    self.message = 'Onno';
+                    self.notes[1].label = 'Changed Note';
+                }
+
+                self.notes = [
+                    {id: 1, label: 'First note', done: false},
+                    {id: 2, label: 'Second note', done: true},
+                    {id: 3, label: 'Third note', done: true},
+                    {id: 4, label: 'Fourth note', done: false}];
+            }]);
+        </script>
+
+
+    </body>
+</html>
